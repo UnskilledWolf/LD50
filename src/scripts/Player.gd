@@ -5,7 +5,7 @@ export (float) var jump_velocity = 300
 export (float) var gravity = 600
 export (float) var friction = 0.21
 
-onready var drillArea = $Drill
+# onready var drillArea = $Drill
 
 var v = Vector2.ZERO # Current Velocity
 
@@ -34,9 +34,9 @@ func _physics_process(delta):
 	# Friction
 	v.x = lerp(v.x,0,friction)
 
-func _process(delta):
-	var mouse_pos = get_global_mouse_position();
-	if global_position.distance_to(mouse_pos) < 500:
-		drillArea.global_position = mouse_pos	
-		drillArea.look_at(self.position)
-		drillArea.rotation_degrees+=210
+# func _process(_delta):
+# 	var mouse_pos = get_global_mouse_position();
+# 	if global_position.distance_to(mouse_pos) < 500:
+# 		drillArea.global_position = mouse_pos	
+# 		drillArea.look_at(self.position)
+# 		drillArea.rotation_degrees+=210
