@@ -7,8 +7,8 @@ onready var play_area = $PlayArea
 onready var block_scene = preload("res://src/scenes/Block.tscn")
 
 var block_size = Vector2.ZERO
-
 var blocks = []
+var rng = RandomNumberGenerator.new()
 
 func spawn_blocks():
 	print("[Main Scene] Instancing blocks...")
@@ -34,22 +34,96 @@ func spawn_blocks():
 			add_child(instance)
 		blocks.append(tmp)
 
+func count_block_neighbors(x,y) -> int:
+	var count = 0;
+
+	# Top Row
+	if y - 1 >= 0:
+		# Top Left
+		if x - 1 >= 0 and blocks[y - 1][x - 1].target_collision:
+			count += 1;
+		# Top
+		if blocks[y - 1][x].target_collision:
+			count += 1;
+		# Top Right
+		if x + 1 < grid_size and blocks[y - 1][x + 1].target_collision:
+			count += 1;
+
+	# Left
+	if x - 1 >= 0 and blocks[y][x - 1].target_collision:
+		count += 1;
+
+	# Right
+	if x + 1 < grid_size and blocks[y][x + 1].target_collision:
+		count += 1;
+
+	#Bottom Row
+	if y + 1 < grid_size:
+		# Bottom Left
+		if x - 1 >= 0 and blocks[y + 1][x - 1].target_collision:
+			count += 1;
+
+		# Bottom
+		if blocks[y + 1][x].target_collision:
+			count += 1;
+
+		# Bottom Right
+		if x + 1 < grid_size and blocks[y + 1][x + 1].target_collision:
+			count += 1;
+
+	return count;
+
 func _ready():
+	rng.randomize()
 	GameManager.connect("block_complete", self, "_on_block_complete")
 
 	spawn_blocks()
-	_on_block_complete(grid_size, grid_size-1)
+	blocks[9][9].set_block_scale(block_size, speed, true)
 
 func _on_block_complete(x,y):
-	var px=x-1
+	var px=x
 	var py=y
-	
-	if px < 0:
-		py = y-1
-		px = grid_size-1
-	
-	if py < 0:
-		print("[Main Scene] No Blocks Left!")
-		return
-	
-	blocks[py][px].set_block_scale(block_size,speed, true)
+
+	# Check if there is remaining space next to the current cube
+	if count_block_neighbors(x,y) < 8:
+		# Fake Do-While Loop
+		while true:
+			var dir = rng.randi_range(0,3) 
+			
+			if dir == 0:
+				px += 1
+			elif dir == 1:
+				px -= 1
+			elif dir == 2:
+				py += 1
+			elif dir == 3:
+				py -= 1
+			else:
+				print("Something went wrong!")
+				return
+
+			# Clamp to array bounds
+			px = clamp(px, 0,grid_size-1)
+			py = clamp(py, 0,grid_size-1)
+
+			if not blocks[py][px].target_collision:
+				blocks[py][px].set_block_scale(block_size,speed, true)
+				return
+	# If not find a filled cube that does have the space
+	else:
+		print("[Main Scene] Searching for new start block")
+		var max_runs = 100
+		while true:
+			max_runs -= 1
+			# Grab a random cube
+			px = rng.randi_range(0,grid_size-1)
+			py = rng.randi_range(0,grid_size-1)
+
+			# Check that it's filled AND that it has empty neighbors
+			if blocks[px][py].target_collision and count_block_neighbors(px,py) < 8:
+				_on_block_complete(px,py) # Use that one instead
+				return
+
+			if max_runs <= 0:
+				print("[Main Scene] Unable to find suitable block!")
+				return
