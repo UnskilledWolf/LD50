@@ -23,14 +23,18 @@ func set_block_scale(scale_to: Vector2, speed: float, collision_on_finish: bool)
 	is_changing = true
 	timer.start(speed)
 
+func cancel():
+	is_changing = false
+
 func _process(_delta):
 	if is_changing:
 		scale = lerp(target_scale, start_scale, timer.time_left/timer.wait_time)
 
 func _on_Timer_timeout():
-	print("["+name+"] Timeout")
-	is_changing = false
-	scale = target_scale
-	collider.disabled = !target_collision
+	if is_changing:
+		print("["+name+"] Timeout")
+		is_changing = false
+		scale = target_scale
+		collider.disabled = !target_collision
 
-	GameManager.block_complete(x,y)
+		GameManager.block_complete(x,y)

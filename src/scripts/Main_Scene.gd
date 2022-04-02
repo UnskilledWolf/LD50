@@ -1,7 +1,7 @@
 extends Node2D
 
 export (int) var grid_size = 10 # Everything proboaply breaks if this changes
-export (float) var speed = 0.5
+export (float) var speed = 1.8 # About 3 minutes
 
 onready var play_area = $PlayArea
 onready var block_scene = preload("res://src/scenes/Block.tscn")

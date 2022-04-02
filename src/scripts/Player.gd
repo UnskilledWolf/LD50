@@ -10,8 +10,10 @@ var v = Vector2.ZERO # Current Velocity
 func get_input():
 	# Left and Right
 	if Input.is_action_pressed("left"):
+		$Sprite.flip_h = false
 		return -speed
 	elif Input.is_action_pressed("right"):
+		$Sprite.flip_h = true
 		return speed
 	else:
 		return 0
