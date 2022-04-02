@@ -28,6 +28,11 @@ config/icon="res://icon.png"
 
 GameManager="*res://src/scripts/GameManager.gd"
 
+[display]
+
+mouse_cursor/custom_image="res://src/sprites/cursor.png"
+mouse_cursor/custom_image_hotspot=Vector2( 16, 16 )
+
 [input]
 
 ui_end={
