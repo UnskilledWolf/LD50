@@ -102,6 +102,7 @@ timer={
 2d_physics/layer_1="player"
 2d_physics/layer_2="static"
 2d_physics/layer_3="blocks"
+2d_physics/layer_4="projectiles"
 
 [physics]
 

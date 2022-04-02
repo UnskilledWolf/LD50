@@ -1,28 +1,46 @@
 extends Node
 
 signal block_complete
+signal ray_destroy
 
 var ability_names = [
 	"Slow Blocks",
-	"Pickaxe",
+	"Drill",
 	"Jump Boost",
 	"Bomb",
 	"Ray"
 ]
 
 var ability_speeds = [
-	20,
-	30,
 	40,
 	50,
-	60
+	60,
+	90,
+	100
 ]
 
+onready var drill_scene = preload("res://src/scenes/Drill.tscn")
+
 var timer_ref
+var player_ref
+
 var invoke_lock = false
 var current_ability = 0
 var block_count = 0 # Used for timing
 var block_count_real = 0 # Used for score
+
+func global_to_grid_pos(p:Vector2) -> Vector2:
+	# x -280 280
+	# y -280 280
+	# Assuming the grid is the 10x10 and whatever size on screen...
+	return Vector2(
+		floor((0.5/280 * p.x + 0.5)*10),
+		floor((0.5/280 * p.y + 0.5)*10)
+	)
+	# return Vector2(
+	# 	floor(5/(280*p.x+0.5)),
+	# 	floor(5/(280*p.y+0.5))
+	# )
 
 func block_complete(x,y):
 	emit_signal("block_complete", x,y)
@@ -38,17 +56,33 @@ func report_score(score:float):
 
 func do_ability(i:int,score:float):
 	if i == 0:
+		print("[Game Manager] Slow down")
 		var minus = round(5/score)
 		print("[Game Manager] Removed " + str(minus) + " blocks from timer")
 		block_count -= minus
 	elif i == 1:
-		pass
+		print("[Game Manager] Drill")
+		var velocity = 2000 * score * player_ref.direction
+		var instance = drill_scene.instance()
+		print(velocity)
+		instance.global_position = player_ref.global_position
+		instance.yeet(velocity)
+		add_child(instance)
 	elif i == 2:
-		pass
+		print("[Game Manager] Jump Boost")
+		player_ref.jump_boost(5*score)
 	elif i == 3:
-		pass
+		print("[Game Manager] Explode")
+		player_ref.explode(100*score)
 	elif i == 4:
-		pass
+		print("[Game Manager] Ray Destroy")
+		if score > 0.8:
+			emit_signal("ray_destroy", global_to_grid_pos(player_ref.global_position))
+		else:
+			print("Failed Ray")
+
+				
+
 
 func game_over(cause):
 	print("[Game Over] " + cause)

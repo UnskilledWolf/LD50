@@ -23,6 +23,7 @@ current = true
 [node name="UI" parent="Camera2D/CanvasLayer" instance=ExtResource( 4 )]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 249 )
 
 [node name="PlayArea" type="StaticBody2D" parent="."]
 scale = Vector2( 35, 35 )

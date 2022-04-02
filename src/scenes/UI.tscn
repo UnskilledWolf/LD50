@@ -85,7 +85,7 @@ margin_top = 62.0
 margin_right = 176.0
 margin_bottom = 84.0
 shortcut = SubResource( 4 )
-text = "Pickaxe"
+text = "Drill"
 icon = ExtResource( 1 )
 
 [node name="Ability3" type="Button" parent="PanelContainer/VBoxContainer"]

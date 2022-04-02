@@ -56,6 +56,7 @@ func get_speed(b:int)->float:
 func _ready():
 	rng.randomize()
 	GameManager.connect("block_complete", self, "_on_block_complete")
+	GameManager.connect("ray_destroy", self, "_on_ray_destroy")
 
 	spawn_blocks()
 	blocks[9][9].set_block_scale(block_size, speed, true)
@@ -119,3 +120,13 @@ func _on_block_complete(x,y):
 				print("[Main Scene] All blocks filled!")
 				GameManager.game_over("All blocks filled!")
 				return
+
+func _on_ray_destroy(pos: Vector2):
+	print(pos)
+	for y in range(grid_size):
+		for x in range(grid_size):
+			if pos.y == y and blocks[y][x].target_collision == true:
+				blocks[y][x].set_block_scale(Vector2.ZERO, 0.1, false)
+
+			if pos.x == x and blocks[y][x].target_collision == true:
+				blocks[y][x].set_block_scale(Vector2.ZERO, 0.1, false)

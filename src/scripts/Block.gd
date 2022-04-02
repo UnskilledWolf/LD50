@@ -40,7 +40,8 @@ func _on_Timer_timeout():
 		collider.disabled = !target_collision
 		area.monitoring = target_collision
 
-		GameManager.block_complete(x,y)
+		if target_collision  == true:
+			GameManager.block_complete(x,y)
 
 func _on_Death_body_entered(body):
 	print(body.name)
