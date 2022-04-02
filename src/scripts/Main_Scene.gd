@@ -7,7 +7,6 @@ onready var play_area = $PlayArea
 onready var block_scene = preload("res://src/scenes/Block.tscn")
 
 var block_size = Vector2.ZERO
-var block_count = 0
 var blocks = []
 var rng = RandomNumberGenerator.new()
 
@@ -88,8 +87,9 @@ func _on_block_complete(x,y):
 			py = clamp(py, 0,grid_size-1)
 
 			if not blocks[py][px].target_collision == true:
-				block_count += 1
-				blocks[py][px].set_block_scale(block_size,get_speed(block_count), true)
+				GameManager.block_count += 1
+				GameManager.block_count_real += 1
+				blocks[py][px].set_block_scale(block_size,get_speed(GameManager.block_count), true)
 				return
 	# If not find a filled cube that does have the space
 	else:
@@ -113,7 +113,7 @@ func _on_block_complete(x,y):
 					for ox in range(grid_size):
 						if blocks[oy][ox].target_collision == false:
 							print("[Main Scene] Found STRAY block at " + str(ox) + ", " + str(oy))
-							blocks[oy][ox].set_block_scale(block_size,get_speed(block_count), true)
+							blocks[oy][ox].set_block_scale(block_size,get_speed(GameManager.block_count), true)
 							return
 				
 				print("[Main Scene] All blocks filled!")

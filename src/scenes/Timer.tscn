@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/sprites/timerSlider.png" type="Texture" id=1]
+[ext_resource path="res://src/sprites/timerBG.png" type="Texture" id=2]
+[ext_resource path="res://src/scripts/Timer.gd" type="Script" id=3]
+
+[node name="Timer" type="Sprite"]
+rotation = 1.5708
+scale = Vector2( 4.875, 4.875 )
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="TimerSlider" type="Sprite" parent="."]
+texture = ExtResource( 1 )
