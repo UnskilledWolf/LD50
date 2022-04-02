@@ -4,6 +4,10 @@ extends StaticBody2D
 onready var timer = $Timer
 onready var collider = $CollisionShape2D
 
+# The Block's index in the array
+var x = 0;
+var y = 0;
+
 var target_scale = Vector2.ZERO;
 var start_scale = Vector2.ZERO;
 var target_collision = false;
@@ -28,3 +32,5 @@ func _on_Timer_timeout():
 	is_changing = false
 	scale = target_scale
 	collider.disabled = !target_collision
+
+	GameManager.block_complete(x,y)
