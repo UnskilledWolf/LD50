@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/animations/player_frames.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://src/scripts/Player.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="Player" type="KinematicBody2D"]
+scale = Vector2( 1.5, 1.5 )
+collision_mask = 6
+script = ExtResource( 2 )
+jump_velocity = 300.0
+gravity = 600.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 1.25, 1.25 )
+frames = ExtResource( 1 )
+animation = "left"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
