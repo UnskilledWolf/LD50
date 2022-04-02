@@ -3,6 +3,7 @@ extends StaticBody2D
 
 onready var timer = $Timer
 onready var collider = $CollisionShape2D
+onready var area = $Death
 
 # The Block's index in the array
 var x = 0;
@@ -25,6 +26,7 @@ func set_block_scale(scale_to: Vector2, speed: float, collision_on_finish: bool)
 
 func cancel():
 	is_changing = false
+	scale = start_scale
 
 func _process(_delta):
 	if is_changing:
@@ -36,5 +38,10 @@ func _on_Timer_timeout():
 		is_changing = false
 		scale = target_scale
 		collider.disabled = !target_collision
+		area.monitoring = target_collision
 
 		GameManager.block_complete(x,y)
+
+func _on_Death_body_entered(body):
+	print(body.name)
+	GameManager.game_over("Entered Block!")
