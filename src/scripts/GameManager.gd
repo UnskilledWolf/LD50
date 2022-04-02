@@ -7,4 +7,4 @@ func block_complete(x,y):
 
 func game_over(cause):
 	print("[Game Over] " + cause)
-	get_tree().quit()
+	get_tree().change_scene("res://src/scenes/PreStart.tscn")

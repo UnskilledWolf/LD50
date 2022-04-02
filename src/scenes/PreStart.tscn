@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/scripts/PreStart_Scene.gd" type="Script" id=1]
+
+[node name="PreStart" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+margin_left = 361.0
+margin_top = 249.0
+margin_right = 662.554
+margin_bottom = 350.0
+rect_min_size = Vector2( 301.554, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 294.554
+margin_bottom = 94.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+margin_right = 287.0
+margin_bottom = 14.0
+text = "Label"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CenterContainer/Panel/VBoxContainer"]
+margin_top = 18.0
+margin_right = 287.0
+margin_bottom = 63.0
+text = "AD/Arrow Keys = Controlls
+W/up/space = Jump
+Mouse/1,2,3,4,5 = Abilities"
+fit_content_height = true
+
+[node name="StartButton" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+margin_top = 67.0
+margin_right = 287.0
+margin_bottom = 87.0
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
