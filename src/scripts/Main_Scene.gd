@@ -7,6 +7,7 @@ onready var play_area = $PlayArea
 onready var block_scene = preload("res://src/scenes/Block.tscn")
 
 var block_size = Vector2.ZERO
+var block_count = 0
 var blocks = []
 var rng = RandomNumberGenerator.new()
 
@@ -35,43 +36,23 @@ func spawn_blocks():
 		blocks.append(tmp)
 
 func count_block_neighbors(x,y) -> int:
-	var count = 0;
+	var count = 0
 
-	# Top Row
-	if y - 1 >= 0:
-		# Top Left
-		if x - 1 >= 0 and blocks[y - 1][x - 1].target_collision:
-			count += 1;
-		# Top
-		if blocks[y - 1][x].target_collision:
-			count += 1;
-		# Top Right
-		if x + 1 < grid_size and blocks[y - 1][x + 1].target_collision:
-			count += 1;
+	for oy in range(-1, 2):
+		for ox in range(-1,2):
+			if y + oy < 0 or y + oy >= grid_size or x + ox < 0 or x + ox >= grid_size:
+				count += 1 # The index is out of bounds
+			elif blocks[y+oy][x+ox].target_collision == true:
+				count += 1 # The index is actually colliding
 
-	# Left
-	if x - 1 >= 0 and blocks[y][x - 1].target_collision:
-		count += 1;
+	return count
 
-	# Right
-	if x + 1 < grid_size and blocks[y][x + 1].target_collision:
-		count += 1;
-
-	#Bottom Row
-	if y + 1 < grid_size:
-		# Bottom Left
-		if x - 1 >= 0 and blocks[y + 1][x - 1].target_collision:
-			count += 1;
-
-		# Bottom
-		if blocks[y + 1][x].target_collision:
-			count += 1;
-
-		# Bottom Right
-		if x + 1 < grid_size and blocks[y + 1][x + 1].target_collision:
-			count += 1;
-
-	return count;
+func get_speed(b:int)->float:
+	#y=-1.0064^{x}+\left(i+1\right) 
+	# var y = pow(-1.0064,b)+2
+	var y = -0.009*b+1
+	print("[Main Scene] Current Speed: " + str(y))
+	return y
 
 func _ready():
 	rng.randomize()
@@ -106,13 +87,14 @@ func _on_block_complete(x,y):
 			px = clamp(px, 0,grid_size-1)
 			py = clamp(py, 0,grid_size-1)
 
-			if not blocks[py][px].target_collision:
-				blocks[py][px].set_block_scale(block_size,speed, true)
+			if not blocks[py][px].target_collision == true:
+				block_count += 1
+				blocks[py][px].set_block_scale(block_size,get_speed(block_count), true)
 				return
 	# If not find a filled cube that does have the space
 	else:
 		print("[Main Scene] Searching for new start block")
-		var max_runs = 100
+		var max_runs = 1000
 		while true:
 			max_runs -= 1
 			# Grab a random cube
@@ -120,10 +102,20 @@ func _on_block_complete(x,y):
 			py = rng.randi_range(0,grid_size-1)
 
 			# Check that it's filled AND that it has empty neighbors
-			if blocks[px][py].target_collision and count_block_neighbors(px,py) < 8:
+			if blocks[px][py].target_collision == true and count_block_neighbors(px,py) < 8:
 				_on_block_complete(px,py) # Use that one instead
 				return
 
 			if max_runs <= 0:
 				print("[Main Scene] Unable to find suitable block!")
+				# Search all blocks
+				for oy in range(grid_size):
+					for ox in range(grid_size):
+						if blocks[oy][ox].target_collision == false:
+							print("[Main Scene] Found STRAY block at " + str(ox) + ", " + str(oy))
+							blocks[oy][ox].set_block_scale(block_size,get_speed(block_count), true)
+							return
+				
+				print("[Main Scene] All blocks filled!")
+				GameManager.game_over("All blocks filled!")
 				return
