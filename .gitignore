@@ -1,0 +1,11 @@
+# Import cache
+.import/
+
+# Binaries
+bin/
+build/
+lib/
+dist/
+
+*.blend1
+todo.md
