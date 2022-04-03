@@ -40,6 +40,8 @@ var current_ability = 0
 var block_count = 0 # Used for timing
 var block_count_real = 0 # Used for score
 
+var high_score = 0
+
 func global_to_grid_pos(p:Vector2) -> Vector2:
 	# x -280 280
 	# y -280 280
@@ -100,7 +102,14 @@ func do_ability(i:int,score:float):
 
 func game_over(cause):
 	print("[Game Over] " + cause)
+
+	# Reset
 	invoke_lock = false
 	current_ability = 0
 	block_count = 0
+
+	# High Score
+	if block_count_real > high_score:
+		high_score = block_count_real
+
 	get_tree().change_scene("res://src/scenes/GameOver.tscn")
