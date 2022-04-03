@@ -57,6 +57,7 @@ func _ready():
 	rng.randomize()
 	GameManager.connect("block_complete", self, "_on_block_complete")
 	GameManager.connect("block_failed", self, "_on_block_failed")
+	GameManager.connect("block_slowdown", self, "_on_block_slowdown")
 	GameManager.connect("ray_destroy", self, "_on_ray_destroy")
 
 	spawn_blocks()
@@ -130,6 +131,9 @@ func find_new_start_block():
 func _on_block_failed(_x,_y):
 	print("[Main Scene] Current growing block has been destroyed!")
 	find_new_start_block()
+
+func _on_block_slowdown():
+	$SlowDownParticles.emitting = true
 
 func _on_ray_destroy(pos: Vector2):
 	print(pos)

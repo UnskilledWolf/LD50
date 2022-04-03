@@ -2,6 +2,7 @@ extends Node
 
 signal block_complete
 signal block_failed
+signal block_slowdown
 signal ray_destroy
 
 var ability_names = [
@@ -72,6 +73,7 @@ func do_ability(i:int,score:float):
 		var minus = round(5/score)
 		print("[Game Manager] Removed " + str(minus) + " blocks from timer")
 		block_count -= minus
+		emit_signal("block_slowdown")
 	elif i == 1:
 		print("[Game Manager] Drill")
 		var velocity = 2000 * score * player_ref.direction

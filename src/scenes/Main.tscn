@@ -1,10 +1,18 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/sprites/bg.png" type="Texture" id=2]
 [ext_resource path="res://src/scripts/Main_Scene.gd" type="Script" id=3]
 [ext_resource path="res://src/scenes/UI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/scenes/Timer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/sprites/SlowBlocksEffect.png" type="Texture" id=6]
+
+[sub_resource type="Curve" id=3]
+max_value = 100.0
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 100 ), 2.64555, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0.764479, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8.74286, 0.285714 )
@@ -24,6 +32,21 @@ current = true
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, 249 )
+
+[node name="SlowDownParticles" type="CPUParticles2D" parent="."]
+position = Vector2( -399, -313 )
+emitting = false
+amount = 5
+lifetime = 2.0
+one_shot = true
+texture = ExtResource( 6 )
+emission_shape = 2
+emission_rect_extents = Vector2( 100, 1 )
+gravity = Vector2( 0, 400 )
+damping = 100.0
+damping_curve = SubResource( 3 )
+scale_amount = 2.0
+scale_amount_curve = SubResource( 4 )
 
 [node name="PlayArea" type="StaticBody2D" parent="."]
 scale = Vector2( 35, 35 )

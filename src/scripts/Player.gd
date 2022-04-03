@@ -14,6 +14,7 @@ var exploding = false
 func jump_boost(time:float):
 	jump_velocity = jump_velocity_boost
 	$JumpBoostTimer.start(time)
+	$JumpBoostParticles.emitting = true
 
 func explode(radius:float):
 	$Bomb/Circle.shape.radius = radius
@@ -57,6 +58,7 @@ func _on_Bomb_body_entered(body:Node):
 
 func _on_JumpBoostTimer_timeout():
 	jump_velocity = jump_velocity_normal
+	$JumpBoostParticles.emitting = false
 
 func _on_ExplosionTimer_timeout():
 	exploding = false

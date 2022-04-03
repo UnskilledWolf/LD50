@@ -11,12 +11,12 @@ var enabled = false
 
 # NOTE this whole thing is turned 90deg so x and y are switched!
 
-func enable(speeeeed: float, ticon: Texture):
+func enable(speeeeed: float, frticon: Texture):
 	enabled = true
 	speed = speeeeed
 	visible = true
 	slider.visible = true
-	icon.texture = ticon
+	icon.texture = frticon
 	icon.visible = true
 
 func disable():

@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/sprites/player.png" type="Texture" id=1]
 [ext_resource path="res://src/scripts/Player.gd" type="Script" id=2]
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0.772201, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -11,6 +14,17 @@
 scale = Vector2( 1.5, 1.5 )
 collision_mask = 6
 script = ExtResource( 2 )
+
+[node name="JumpBoostParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 10
+local_coords = false
+emission_shape = 2
+emission_rect_extents = Vector2( 7, 7 )
+gravity = Vector2( 0, -250 )
+scale_amount = 4.0
+scale_amount_curve = SubResource( 3 )
+color = Color( 0.0941176, 0.101961, 0.121569, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
