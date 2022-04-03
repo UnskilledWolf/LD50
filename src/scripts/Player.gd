@@ -23,6 +23,10 @@ func explode(radius:float):
 func ray_explosion(animation: String):
 	$RayExplosion.play(animation)
 
+func play_sound(sound:AudioStream):
+	$Sound.stream = sound
+	$Sound.play()
+
 func get_input():
 	# Left and Right
 	if Input.is_action_pressed("left"):

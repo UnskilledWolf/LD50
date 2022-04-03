@@ -37,6 +37,7 @@ func _process(_delta):
 
 func invoke_ability(I:int):
 	if not GameManager.invoke_lock:
+		$Sound.play()
 		var i = I-1
 		buttons[i].disabled = true
 		display_recharge[i] = true
@@ -95,5 +96,6 @@ func _on_timer_complete(score):
 	else:
 		score_text = "Bad"
 
+	$Sound.play()
 	$TimerScore.text = score_text
 	$TimerScoreTimer.start()

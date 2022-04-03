@@ -30,6 +30,14 @@ var ability_icons = [
 	preload("res://src/sprites/abilities/Ray.png")
 ]
 
+var ability_sounds = [
+	preload("res://src/sounds/SlowBlocks.wav"),
+	preload("res://src/sounds/Drill.wav"),
+	preload("res://src/sounds/JumpBoost.wav"),
+	preload("res://src/sounds/Bomb.wav"),
+	preload("res://src/sounds/Ray.wav")
+]
+
 onready var drill_scene = preload("res://src/scenes/Drill.tscn")
 
 var timer_ref
@@ -71,13 +79,15 @@ func report_score(score:float):
 	do_ability(current_ability,score)
 
 func do_ability(i:int,score:float):
-	emit_signal("timer_complete", score)
+	player_ref.play_sound(ability_sounds[i])
+	# Sound stared in each case invidiously, because ray can fail
 	if i == 0:
 		print("[Game Manager] Slow down")
 		var minus = round(5/score)
 		print("[Game Manager] Removed " + str(minus) + " blocks from timer")
 		block_count -= minus
 		emit_signal("block_slowdown")
+		emit_signal("timer_complete", score)
 	elif i == 1:
 		print("[Game Manager] Drill")
 		var velocity = 2000 * score * player_ref.direction
@@ -86,17 +96,21 @@ func do_ability(i:int,score:float):
 		instance.global_position = player_ref.global_position
 		instance.yeet(velocity)
 		add_child(instance)
+		emit_signal("timer_complete", score)
 	elif i == 2:
 		print("[Game Manager] Jump Boost")
 		player_ref.jump_boost(5*score)
+		emit_signal("timer_complete", score)
 	elif i == 3:
 		print("[Game Manager] Explode")
 		player_ref.explode(100*score)
+		emit_signal("timer_complete", score)
 	elif i == 4:
 		print("[Game Manager] Ray Destroy")
 		if score > 0.8:
 			emit_signal("ray_destroy", global_to_grid_pos(player_ref.global_position))
 			player_ref.ray_explosion("success")
+			emit_signal("timer_complete", score)
 		else:
 			player_ref.ray_explosion("fail")
 

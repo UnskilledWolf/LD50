@@ -47,6 +47,7 @@ func _on_Timer_timeout():
 
 		if target_collision  == true:
 			$AnimationPlayer.play("flash")
+			$AudioStreamPlayer.play()
 			GameManager.block_complete(x,y)
 
 func _on_Death_body_entered(_body):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/sprites/abilities/Drill.png" type="Texture" id=1]
 [ext_resource path="res://src/scripts/UI_Scene.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://src/sprites/abilities/SlowBlocks.png" type="Texture" id=5]
 [ext_resource path="res://src/sprites/abilities/JumpBoost.png" type="Texture" id=6]
 [ext_resource path="res://src/theme/ui.tres" type="Theme" id=7]
+[ext_resource path="res://src/sounds/Select.wav" type="AudioStream" id=8]
 
 [sub_resource type="InputEventAction" id=1]
 action = "ability_1"
@@ -173,6 +174,9 @@ __meta__ = {
 
 [node name="TimerScoreTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Ability1" to="." method="_on_Ability1_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Ability2" to="." method="_on_Ability2_pressed"]

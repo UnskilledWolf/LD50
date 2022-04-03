@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/JumpBoost.wav-79421cec9c9770e95f96a3a2aee127a9.sample"
+
+[deps]
+
+source_file="res://src/sounds/JumpBoost.wav"
+dest_files=[ "res://.import/JumpBoost.wav-79421cec9c9770e95f96a3a2aee127a9.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
