@@ -24,6 +24,9 @@ var display_recharge = [
 	true
 ]
 
+func _ready():
+	GameManager.connect("timer_complete", self, "_on_timer_complete")
+
 func _process(_delta):
 	for i in range(5):
 		if display_recharge[i]:
@@ -76,3 +79,21 @@ func _on_AbilityTimer4_timeout():
 
 func _on_AbilityTimer5_timeout():
 	restore_ability(5)
+
+func _on_TimerScoreTimer_timeout():
+	$TimerScore.text = ""
+
+func _on_timer_complete(score):
+	var score_text = ""
+
+	if score > 0.95:
+		score_text = "Perfect!"
+	elif score > 0.8:
+		score_text = "Good"
+	elif score > 0.5:
+		score_text = "Ok"
+	else:
+		score_text = "Bad"
+
+	$TimerScore.text = score_text
+	$TimerScoreTimer.start()

@@ -158,6 +158,22 @@ wait_time = 35.0
 one_shot = true
 autostart = true
 
+[node name="TimerScore" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 63.0
+margin_top = -82.0
+margin_right = 139.0
+margin_bottom = -68.0
+custom_colors/font_color = Color( 0.960784, 0.980392, 1, 1 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimerScoreTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Ability1" to="." method="_on_Ability1_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Ability2" to="." method="_on_Ability2_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Ability3" to="." method="_on_Ability3_pressed"]
@@ -168,3 +184,4 @@ autostart = true
 [connection signal="timeout" from="AbilityTimer3" to="." method="_on_AbilityTimer3_timeout"]
 [connection signal="timeout" from="AbilityTimer4" to="." method="_on_AbilityTimer4_timeout"]
 [connection signal="timeout" from="AbilityTimer5" to="." method="_on_AbilityTimer5_timeout"]
+[connection signal="timeout" from="TimerScoreTimer" to="." method="_on_TimerScoreTimer_timeout"]

@@ -4,6 +4,7 @@ signal block_complete
 signal block_failed
 signal block_slowdown
 signal ray_destroy
+signal timer_complete
 
 var ability_names = [
 	"Slow Blocks",
@@ -68,6 +69,7 @@ func report_score(score:float):
 	do_ability(current_ability,score)
 
 func do_ability(i:int,score:float):
+	emit_signal("timer_complete", score)
 	if i == 0:
 		print("[Game Manager] Slow down")
 		var minus = round(5/score)
