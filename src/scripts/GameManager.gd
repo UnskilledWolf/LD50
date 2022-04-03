@@ -101,5 +101,4 @@ func game_over(cause):
 	invoke_lock = false
 	current_ability = 0
 	block_count = 0
-	block_count_real = 0
-	get_tree().change_scene("res://src/scenes/PreStart.tscn")
+	get_tree().change_scene("res://src/scenes/GameOver.tscn")
