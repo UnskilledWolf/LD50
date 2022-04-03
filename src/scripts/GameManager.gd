@@ -20,6 +20,14 @@ var ability_speeds = [
 	100
 ]
 
+var ability_icons = [
+	preload("res://src/sprites/abilities/SlowBlocks.png"),
+	preload("res://src/sprites/abilities/Drill.png"),
+	preload("res://src/sprites/abilities/JumpBoost.png"),
+	preload("res://src/sprites/abilities/Bomb.png"),
+	preload("res://src/sprites/abilities/Ray.png")
+]
+
 onready var drill_scene = preload("res://src/scenes/Drill.tscn")
 
 var timer_ref
@@ -52,7 +60,7 @@ func block_failed(x,y):
 func invoke_ability(i:int):
 	invoke_lock = true
 	current_ability = i
-	timer_ref.enable(ability_speeds[i])
+	timer_ref.enable(ability_speeds[i], ability_icons[i])
 
 func report_score(score:float):
 	invoke_lock = false

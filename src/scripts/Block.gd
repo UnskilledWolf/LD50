@@ -48,6 +48,5 @@ func _on_Timer_timeout():
 		if target_collision  == true:
 			GameManager.block_complete(x,y)
 
-func _on_Death_body_entered(body):
-	print(body.name)
+func _on_Death_body_entered(_body):
 	GameManager.game_over("Entered Block!")

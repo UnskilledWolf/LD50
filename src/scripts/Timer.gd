@@ -4,22 +4,26 @@ export var speed = 20
 export var y_limit = -37.718
 
 onready var slider = $TimerSlider
+onready var icon = $Icon
 
 var direction = 1
 var enabled = false
 
 # NOTE this whole thing is turned 90deg so x and y are switched!
 
-func enable(speeeeed: float):
+func enable(speeeeed: float, ticon: Texture):
 	enabled = true
 	speed = speeeeed
 	visible = true
 	slider.visible = true
+	icon.texture = ticon
+	icon.visible = true
 
 func disable():
 	enabled = false
 	visible = false
 	slider.visible = false
+	icon.visible = false
 
 func _ready():
 	disable()

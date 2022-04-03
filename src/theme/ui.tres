@@ -1,0 +1,50 @@
+[gd_resource type="Theme" load_steps=6 format=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0.960784, 0.980392, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0.0941176, 0.101961, 0.121569, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0.0941176, 0.101961, 0.121569, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0.0941176, 0.101961, 0.121569, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+content_margin_left = 2.0
+content_margin_right = 2.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0.960784, 0.980392, 1, 1 )
+
+[resource]
+Button/colors/font_color = Color( 0.960784, 0.980392, 1, 1 )
+Button/colors/font_color_disabled = Color( 0.0941176, 0.101961, 0.121569, 1 )
+Button/colors/font_color_focus = Color( 0.960784, 0.980392, 1, 1 )
+Button/colors/font_color_hover = Color( 0.960784, 0.980392, 1, 1 )
+Button/colors/font_color_pressed = Color( 0.960784, 0.980392, 1, 1 )
+Button/styles/disabled = SubResource( 1 )
+Button/styles/hover = SubResource( 2 )
+Button/styles/normal = SubResource( 3 )
+Button/styles/pressed = SubResource( 4 )
+Label/colors/font_color = Color( 0.0941176, 0.101961, 0.121569, 1 )
+PanelContainer/styles/panel = SubResource( 5 )
+RichTextLabel/colors/default_color = Color( 0.0941176, 0.101961, 0.121569, 1 )
