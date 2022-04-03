@@ -24,6 +24,11 @@ func set_block_scale(scale_to: Vector2, speed: float, collision_on_finish: bool)
 	is_changing = true
 	timer.start(speed)
 
+	# Block failed to grow before being reset
+	if target_collision == true and collision_on_finish == false:
+		GameManager.block_failed(x,y)
+
+
 func cancel():
 	is_changing = false
 	scale = start_scale

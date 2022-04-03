@@ -17,11 +17,11 @@ onready var buttons = [
 ]
 
 var display_recharge = [
-	false,
-	false,
-	false,
-	false,
-	false
+	true,
+	true,
+	true,
+	true,
+	true
 ]
 
 func _process(_delta):
@@ -61,7 +61,7 @@ func _on_Ability4_pressed():
 func _on_Ability5_pressed():
 	invoke_ability(5)
 
-
+	
 func _on_AbilityTimer1_timeout():
 	restore_ability(1)
 

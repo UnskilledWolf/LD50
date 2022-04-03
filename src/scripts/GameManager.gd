@@ -1,6 +1,7 @@
 extends Node
 
 signal block_complete
+signal block_failed
 signal ray_destroy
 
 var ability_names = [
@@ -45,6 +46,9 @@ func global_to_grid_pos(p:Vector2) -> Vector2:
 func block_complete(x,y):
 	emit_signal("block_complete", x,y)
 
+func block_failed(x,y):
+	emit_signal("block_failed",x,y)
+
 func invoke_ability(i:int):
 	invoke_lock = true
 	current_ability = i
@@ -81,9 +85,10 @@ func do_ability(i:int,score:float):
 		else:
 			print("Failed Ray")
 
-				
-
-
 func game_over(cause):
 	print("[Game Over] " + cause)
+	invoke_lock = false
+	current_ability = 0
+	block_count = 0
+	block_count_real = 0
 	get_tree().change_scene("res://src/scenes/PreStart.tscn")

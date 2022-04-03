@@ -56,6 +56,7 @@ func get_speed(b:int)->float:
 func _ready():
 	rng.randomize()
 	GameManager.connect("block_complete", self, "_on_block_complete")
+	GameManager.connect("block_failed", self, "_on_block_failed")
 	GameManager.connect("ray_destroy", self, "_on_ray_destroy")
 
 	spawn_blocks()
@@ -94,32 +95,41 @@ func _on_block_complete(x,y):
 				return
 	# If not find a filled cube that does have the space
 	else:
-		print("[Main Scene] Searching for new start block")
-		var max_runs = 1000
-		while true:
-			max_runs -= 1
-			# Grab a random cube
-			px = rng.randi_range(0,grid_size-1)
-			py = rng.randi_range(0,grid_size-1)
+		find_new_start_block()
 
-			# Check that it's filled AND that it has empty neighbors
-			if blocks[px][py].target_collision == true and count_block_neighbors(px,py) < 8:
-				_on_block_complete(px,py) # Use that one instead
-				return
+func find_new_start_block():
+	print("[Main Scene] Searching for new start block")
+	var max_runs = 1000
+	while true:
+		max_runs -= 1
+		# Grab a random cube
+		var px = rng.randi_range(0,grid_size-1)
+		var py = rng.randi_range(0,grid_size-1)
 
-			if max_runs <= 0:
-				print("[Main Scene] Unable to find suitable block!")
-				# Search all blocks
-				for oy in range(grid_size):
-					for ox in range(grid_size):
-						if blocks[oy][ox].target_collision == false:
-							print("[Main Scene] Found STRAY block at " + str(ox) + ", " + str(oy))
-							blocks[oy][ox].set_block_scale(block_size,get_speed(GameManager.block_count), true)
-							return
-				
-				print("[Main Scene] All blocks filled!")
-				GameManager.game_over("All blocks filled!")
-				return
+		# Check that it's filled AND that it has empty neighbors
+		if blocks[px][py].target_collision == true and count_block_neighbors(px,py) < 8:
+			# blocks[py][px].modulate = Color.green
+			_on_block_complete(px,py) # Use that one instead
+			return
+
+		if max_runs <= 0:
+			print("[Main Scene] Unable to find suitable block!")
+			# Search all blocks
+			for oy in range(grid_size):
+				for ox in range(grid_size):
+					if blocks[oy][ox].target_collision == false:
+						print("[Main Scene] Found STRAY block at " + str(ox) + ", " + str(oy))
+						# blocks[oy][ox].modulate = Color.red
+						blocks[oy][ox].set_block_scale(block_size,get_speed(GameManager.block_count), true)
+						return
+			
+			print("[Main Scene] All blocks filled!")
+			GameManager.game_over("All blocks filled!")
+			return
+
+func _on_block_failed(_x,_y):
+	print("[Main Scene] Current growing block has been destroyed!")
+	find_new_start_block()
 
 func _on_ray_destroy(pos: Vector2):
 	print(pos)
