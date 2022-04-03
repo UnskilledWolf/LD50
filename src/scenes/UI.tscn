@@ -149,11 +149,11 @@ one_shot = true
 autostart = true
 
 [node name="AbilityTimer4" type="Timer" parent="."]
+wait_time = 30.0
 one_shot = true
 autostart = true
 
 [node name="AbilityTimer5" type="Timer" parent="."]
-wait_time = 35.0
 one_shot = true
 autostart = true
 

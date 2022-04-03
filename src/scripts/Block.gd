@@ -17,16 +17,16 @@ var is_changing = false;
 func set_block_scale(scale_to: Vector2, speed: float, collision_on_finish: bool):
 	print("["+name+"] Going to scale " + str(scale_to))
 
+	# Block failed to grow before being reset
+	if is_changing and target_collision == true and collision_on_finish == false:
+		GameManager.block_failed(x,y)
+
 	target_scale = scale_to
 	start_scale = scale
 	target_collision = collision_on_finish
 
 	is_changing = true
 	timer.start(speed)
-
-	# Block failed to grow before being reset
-	if target_collision == true and collision_on_finish == false:
-		GameManager.block_failed(x,y)
 
 
 func cancel():

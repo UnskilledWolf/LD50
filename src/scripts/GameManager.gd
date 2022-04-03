@@ -92,8 +92,9 @@ func do_ability(i:int,score:float):
 		print("[Game Manager] Ray Destroy")
 		if score > 0.8:
 			emit_signal("ray_destroy", global_to_grid_pos(player_ref.global_position))
+			player_ref.ray_explosion("success")
 		else:
-			print("Failed Ray")
+			player_ref.ray_explosion("fail")
 
 func game_over(cause):
 	print("[Game Over] " + cause)

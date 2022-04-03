@@ -20,6 +20,9 @@ func explode(radius:float):
 	$ExplosionParticles.emission_sphere_radius = radius
 	$ExplosionTimer.start()
 
+func ray_explosion(animation: String):
+	$RayExplosion.play(animation)
+
 func get_input():
 	# Left and Right
 	if Input.is_action_pressed("left"):
@@ -59,3 +62,6 @@ func _on_ExplosionTimer_timeout():
 	$ExplosionParticles.emitting = true
 	for body in $Bomb.get_overlapping_bodies():
 		body.set_block_scale(Vector2.ZERO, 0.1, false)
+
+func _on_RayExplosion_animation_finished():
+	$RayExplosion.animation = "default"
