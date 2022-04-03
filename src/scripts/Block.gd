@@ -46,6 +46,7 @@ func _on_Timer_timeout():
 		area.monitoring = target_collision
 
 		if target_collision  == true:
+			$AnimationPlayer.play("flash")
 			GameManager.block_complete(x,y)
 
 func _on_Death_body_entered(_body):

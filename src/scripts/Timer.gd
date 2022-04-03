@@ -8,6 +8,7 @@ onready var icon = $Icon
 
 var direction = 1
 var enabled = false
+var rng = RandomNumberGenerator.new()
 
 # NOTE this whole thing is turned 90deg so x and y are switched!
 
@@ -15,6 +16,9 @@ func enable(speeeeed: float, frticon: Texture):
 	enabled = true
 	speed = speeeeed
 	icon.texture = frticon
+
+	slider.position.x = rng.randf_range(y_limit+1, -y_limit-1)
+
 	$AnimationPlayer.play("animateIn")
 
 func disable():
@@ -24,6 +28,7 @@ func disable():
 func _ready():
 	disable()
 	GameManager.timer_ref = self
+	rng.randomize()
 
 func _process(delta):
 	if enabled:
