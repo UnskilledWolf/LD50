@@ -9,7 +9,6 @@ export (float) var friction = 0.21
 var v = Vector2.ZERO # Current Velocity
 var direction = -1
 var jump_velocity = 300
-var exploding = false
 
 func jump_boost(time:float):
 	jump_velocity = jump_velocity_boost
@@ -18,8 +17,8 @@ func jump_boost(time:float):
 
 func explode(radius:float):
 	$Bomb/Circle.shape.radius = radius
+	$ExplosionParticles.emission_sphere_radius = radius
 	$ExplosionTimer.start()
-	exploding = true
 
 func get_input():
 	# Left and Right
@@ -52,13 +51,11 @@ func _physics_process(delta):
 	# Friction
 	v.x = lerp(v.x,0,friction)
 
-func _on_Bomb_body_entered(body:Node):
-	if exploding:
-		body.set_block_scale(Vector2.ZERO, 0.1, false)
-
 func _on_JumpBoostTimer_timeout():
 	jump_velocity = jump_velocity_normal
 	$JumpBoostParticles.emitting = false
 
 func _on_ExplosionTimer_timeout():
-	exploding = false
+	$ExplosionParticles.emitting = true
+	for body in $Bomb.get_overlapping_bodies():
+		body.set_block_scale(Vector2.ZERO, 0.1, false)
