@@ -41,7 +41,7 @@ __meta__ = {
 margin_right = 297.0
 margin_bottom = 35.0
 custom_fonts/font = ExtResource( 3 )
-text = "Title"
+text = "Grid Fill"
 align = 1
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer/Panel/VBoxContainer"]

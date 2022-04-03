@@ -20,9 +20,11 @@ _global_script_class_icons={
 
 [application]
 
-config/name="LD50"
-run/main_scene="res://src/scenes/Main.tscn"
+config/name="LD50 Grid Fill"
+run/main_scene="res://src/scenes/MainMenu.tscn"
+boot_splash/bg_color=Color( 0.0941176, 0.101961, 0.121569, 1 )
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
@@ -30,6 +32,7 @@ GameManager="*res://src/scripts/GameManager.gd"
 
 [display]
 
+window/size/resizable=false
 mouse_cursor/custom_image="res://src/sprites/cursor.png"
 mouse_cursor/custom_image_hotspot=Vector2( 16, 16 )
 
