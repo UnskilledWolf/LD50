@@ -14,16 +14,12 @@ var enabled = false
 func enable(speeeeed: float, frticon: Texture):
 	enabled = true
 	speed = speeeeed
-	visible = true
-	slider.visible = true
 	icon.texture = frticon
-	icon.visible = true
+	$AnimationPlayer.play("animateIn")
 
 func disable():
 	enabled = false
-	visible = false
-	slider.visible = false
-	icon.visible = false
+	$AnimationPlayer.play("animateOut")
 
 func _ready():
 	disable()

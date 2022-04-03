@@ -48,6 +48,13 @@ damping_curve = SubResource( 3 )
 scale_amount = 2.0
 scale_amount_curve = SubResource( 4 )
 
+[node name="Timer Position" type="Position2D" parent="."]
+position = Vector2( -407, 0 )
+rotation = 1.5708
+
+[node name="Timer" parent="Timer Position" instance=ExtResource( 5 )]
+rotation = 0.0
+
 [node name="PlayArea" type="StaticBody2D" parent="."]
 scale = Vector2( 35, 35 )
 z_index = -1
@@ -72,6 +79,3 @@ shape = SubResource( 2 )
 [node name="Right" type="CollisionShape2D" parent="PlayArea"]
 position = Vector2( -8.37143, 0 )
 shape = SubResource( 2 )
-
-[node name="Timer" parent="." instance=ExtResource( 5 )]
-position = Vector2( -407, 0 )

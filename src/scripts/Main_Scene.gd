@@ -2,6 +2,7 @@ extends Node2D
 
 export (int) var grid_size = 10 # Everything proboaply breaks if this changes
 export (float) var speed = 1 # About 1 minute
+export (Curve) var difficulty
 
 onready var play_area = $PlayArea
 onready var block_scene = preload("res://src/scenes/Block.tscn")
@@ -50,6 +51,7 @@ func get_speed(b:int)->float:
 	#y=-1.0064^{x}+\left(i+1\right) 
 	# var y = pow(-1.0064,b)+2
 	var y = -0.009*b+1
+	# var y = difficulty.interpolate(float(b)/100)
 	print("[Main Scene] Current Speed: " + str(y))
 	return y
 
